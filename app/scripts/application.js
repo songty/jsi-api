@@ -11,7 +11,6 @@ App.ApplicationAdapter = DS.RESTAdapter.extend({
 
 App.Employee = DS.Model.extend({
   name: DS.attr('string'),
-  role: DS.attr('string')
+  role: DS.attr('string'),
+  boss: DS.belongsTo('employee', {async: true})
 });
-
-console.log(App.Employee);

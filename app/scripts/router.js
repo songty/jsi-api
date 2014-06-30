@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(App){
   App.Router.map(function(){
-    console.log('I\'m the router');
+  	this.resource('employee', { path: '/employee/:employee_id' });
   });
   App.IndexRoute = Ember.Route.extend({
     model: function(){
@@ -9,3 +9,4 @@ module.exports = function(App){
     }
   });
 };
+
