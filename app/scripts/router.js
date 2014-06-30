@@ -8,5 +8,12 @@ module.exports = function(App){
       return this.store.findAll('employee');
     }
   });
+  App.EmployeeRoute = Ember.Route.extend({
+  	actions: {
+  		home: function() {
+  			this.transitionTo('index');
+  		}
+  	}
+  });
 };
 
