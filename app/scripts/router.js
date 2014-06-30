@@ -5,7 +5,7 @@ module.exports = function(App){
   });
   App.IndexRoute = Ember.Route.extend({
     model: function(){
-      return this.store.find('employee');
+      return this.store.findAll('employee');
     }
   });
 };

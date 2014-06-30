@@ -10,9 +10,8 @@ App.ApplicationAdapter = DS.RESTAdapter.extend({
 });
 
 App.Employee = DS.Model.extend({
-  eployeeID: DS.attr('string'),
   name: DS.attr('string'),
-  role: DS.attr('string'),
-  links: DS.attr('string')
+  role: DS.attr('string')
 });
 
+console.log(App.Employee);
