@@ -1,7 +1,9 @@
 'use strict';
 module.exports = function(App){
   App.Router.map(function(){
-  	this.resource('employee', { path: '/employee/:employee_id' });
+  	this.resource('employee', { path: '/employee/:employee_id' }, function() {
+  		this.route('edit');
+  	});
   });
   App.IndexRoute = Ember.Route.extend({
     model: function(){
@@ -12,7 +14,15 @@ module.exports = function(App){
   	actions: {
   		home: function() {
   			this.transitionTo('index');
+  		},
+  		edit: function() {
+  			this.transitionTo('employee.edit');
   		}
+  	}
+  });
+  App.EmployeeEditRoute = Ember.Route.extend({
+  	model: function(param) {
+  		return this.store.find('employee', param);
   	}
   });
 };

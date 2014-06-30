@@ -1,5 +1,6 @@
 <h1>{{name}}'s boss is: {{boss.name}}</h1>
 <button id='backButton' {{action 'home'}}>Back</button>
+<button id='editButton' {{action 'edit' id}}>Edit</button>
 {{#each projects}}
 	<li>{{name}}</li>
 {{/each}}
