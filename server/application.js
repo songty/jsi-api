@@ -22,6 +22,7 @@ if (config.env === 'development') {
   var connectLivereload = require('connect-livereload');
   app.use(connectLivereload({ port: process.env.LIVERELOAD_PORT || 35729 }));
   app.use(morgan('dev'));
+  app.use(require('knex-logger')(knex));
   app.use(express.static(config.public));
   app.use(express.static(path.join(__dirname, '../app')));
 }
@@ -33,8 +34,6 @@ if (config.env === 'production') {
 }
 app.use(bodyParser.json());
 app.use(methodOverride());
-app.use(require('knex-logger')(knex));
-
 
 var Employee,
     Project;
@@ -109,7 +108,7 @@ api.put('/employees/:id', delay, function(req, res) {
   Employee.where({ id: req.params.id }).fetch().then(function(model) {
     model.set('name', req.body.employee.name);
     model.set('role', req.body.employee.role);
-    // TODO: what to do about projects list?
+    // TODO: update projects as well
     return model.save();
   }).then(function(model) {
     res.json({ employee: decorate.employee(model.toJSON()) });
@@ -118,6 +117,7 @@ api.put('/employees/:id', delay, function(req, res) {
 
 
 api.get('/employees/:id/boss', delay, function(req, res) {
+  // TODO: improve query
   Employee.where({ id: req.params.id })
   .fetch({ withRelated: 'boss' })
   .then(function(model) {
@@ -127,6 +127,7 @@ api.get('/employees/:id/boss', delay, function(req, res) {
 });
 
 api.get('/employees/:id/projects', delay, function(req, res) {
+  // TODO: improve query
   Employee.where({ id: req.params.id })
   .fetch({ withRelated: 'projects' })
   .then(function(model) {
@@ -139,6 +140,7 @@ api.get('/employees/:id/projects', delay, function(req, res) {
 });
 
 api.get('/employees/:id/reports', delay, function(req, res) {
+  // TODO: improve query
   Employee.where({ id: req.params.id })
   .fetch({ withRelated: 'reports' })
   .then(function(model) {
@@ -160,12 +162,13 @@ api.get('/projects', delay, function(req, res) {
 });
 
 api.get('/projects/:id', delay, function(req, res) {
-  Project.where({ id: req.params.id }).fetch() .then(function(model) {
+  Project.where({ id: req.params.id }).fetch().then(function(model) {
     res.json({ project: decorate.project(model.toJSON()) });
   });
 });
 
 api.get('/projects/:id/members', delay, function(req, res) {
+  // TODO: improve query
   Project.where({ id: req.params.id })
   .fetch({ withRelated: 'teamMembers' })
   .then(function(model) {
