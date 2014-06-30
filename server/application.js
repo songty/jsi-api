@@ -71,7 +71,7 @@ var decorate = {
       reports: util.format('/api/v1/employees/%s/reports', employee.id),
       projects: util.format('/api/v1/employees/%s/projects', employee.id)
     };
-    if (employee.boss || employee.boss_id) {
+    if (employee.boss || employee.bossId) {
       links.boss = util.format('/api/v1/employees/%s/boss', employee.id);
     }
     return _.extend({}, clean(employee), { links: links });
